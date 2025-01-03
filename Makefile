@@ -1,7 +1,7 @@
 NAME = minishell
 CC = cc
 SRCS =		srcs/main.c \
-		stcs/env.c \
+		srcs/builtins/env.c \
 		
 LIBFT = ./libft/libft.a
 OBJECTS = $(SRCS:.c=.o)
@@ -11,7 +11,7 @@ LFLAGS = -L./libft -lft
 all : $(NAME)
 
 $(NAME): $(OBJECTS) $(LIBFT) $(FT_PRINTF)
-	$(CC) $(CFLAGS) $(OBJECTS) $(FT_PRINTF) $(LIBFT) -o $(NAME) $(LFLAGS) -lreadline
+	$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT) -o $(NAME) $(LFLAGS) -lreadline
 
 $(LIBFT):
 	make -C ./libft
@@ -25,7 +25,7 @@ clean:
 fclean:	clean
 	$(RM) $(NAME)
 	make fclean -C ./libft
-	make fclean -C ./ft_printf
+
 
 re: fclean all
 

@@ -21,6 +21,7 @@
 # include <stdio.h>
 # include "../libft/libft.h"
 # include <limits.h>
+# include <stdbool.h>
 
 typedef struct s_env{
 	char *name;
@@ -28,7 +29,18 @@ typedef struct s_env{
 	struct s_env	*next;
 }		t_env;
 
+typedef struct s_shell{
+	struct s_env	*env;
+	bool	running;
+	
+}		t_shell;
+
+
 //env.c
 t_env	*list_env(char **env);
 void	print_list(t_env *list_env);
+//commands.c
+void	commands(char *prompt, t_shell *shell);
+//utils.c
+int     ft_strcmp(char *s1, char *s2);
 #endif

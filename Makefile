@@ -1,7 +1,10 @@
 NAME = minishell
 CC = cc
 SRCS =		srcs/main.c \
+		srcs/utils.c \
 		srcs/builtins/env.c \
+		srcs/builtins/commands.c \
+		
 		
 LIBFT = ./libft/libft.a
 OBJECTS = $(SRCS:.c=.o)

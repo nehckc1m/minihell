@@ -31,6 +31,7 @@ typedef struct s_env{
 
 typedef struct s_shell{
 	struct s_env	*env;
+	char		**cmd;
 	bool	running;
 	
 }		t_shell;
@@ -38,9 +39,10 @@ typedef struct s_shell{
 
 //env.c
 t_env	*list_env(char **env);
+t_env	*export_env(t_shell *shell, char* env_var);
 void	print_list(t_env *list_env);
 //commands.c
-void	commands(char *prompt, t_shell *shell);
+void	commands(t_shell *shell);
 //utils.c
 int     ft_strcmp(char *s1, char *s2);
 #endif

@@ -74,3 +74,28 @@ void	print_list(t_env *list_env)
         current = current->next;
     }
 }
+
+t_env	*export_env(t_shell *shell, char* env_var)
+{
+	t_env	*tmp;
+	t_env	*new;
+	int	i;
+	
+	i = 0;
+	new = NULL;
+	if (!env_var)
+	{
+
+		return (shell->env);
+	}
+	new = malloc (sizeof(t_env));
+	new->name = strndup(env_var, ft_strchr(env_var, '=') - env_var);
+	new->value = strdup(ft_strchr(env_var, '=') + 1);
+	new->next = NULL;
+	tmp = shell->env;
+	while(tmp->next)
+		tmp = tmp->next;
+	tmp->next = new;
+	return (shell->env);
+}
+

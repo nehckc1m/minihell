@@ -16,6 +16,7 @@ void init_hell(t_shell *shell, char **env)
 {
 	//t_env	*list;
 	shell->env = list_env(env);
+	shell->cmd = NULL;
 	shell->running = 1;
 
 }
@@ -37,6 +38,18 @@ static int	check_quotes(char *prompt)
 		i++;
 	}
 	return (open_s_quote || open_d_quote);
+}
+
+static char **prompt_to_array(char *prompt, t_shell *shell)
+{
+	char **cmd;
+	
+	if (shell->cmd)
+		free(shell->cmd);
+	cmd = malloc(sizeof(char *));
+	cmd = ft_split(prompt, ' ');
+	//printf("%s,%s\n",cmd[0],cmd[1]);
+	return (cmd);
 }
 
 int main(int ac, char **av, char **env)
@@ -64,7 +77,8 @@ int main(int ac, char **av, char **env)
 			add_history(prompt);
 		if (check_quotes(prompt))
 			printf ("ERROR: quotes not closed properly\n");
-		commands(prompt, shell);
+		shell->cmd = prompt_to_array(prompt, shell);
+		commands(shell);
 	}
 	return (0);
 }

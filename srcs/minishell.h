@@ -39,7 +39,7 @@ typedef struct s_shell{
 
 //env.c
 t_env	*list_env(char **env);
-t_env	*export_env(t_shell *shell, char* env_var);
+t_env	*export_env(t_shell *shell, char **env_var);
 void	print_list(t_env *list_env);
 //commands.c
 void	commands(t_shell *shell);

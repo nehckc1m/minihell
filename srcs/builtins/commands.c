@@ -46,7 +46,7 @@ void	commands(t_shell *shell)
 	else if (ft_strcmp(shell->cmd[0], "env") == 0)
 		print_list(shell->env);
 	else if (ft_strcmp(shell->cmd[0], "export") == 0)
-		export_env(shell, "salut=youpi");
+		export_env(shell, shell->cmd + 1);
 	else if	(ft_strcmp(shell->cmd[0], "echo") == 0)
 		ft_echo(shell->cmd + 1);
 	else

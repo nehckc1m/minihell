@@ -12,6 +12,36 @@
 
 #include "minishell.h"
 
+
+char	*remove_quotes(const char *prompt)
+{
+	char	*res;
+	int	i;
+	int	j;
+	int	in_quotes;
+
+	in_quotes = 0;
+	i = 0;
+	j = 0;
+	if (!prompt)
+		return (NULL);
+	res = malloc(sizeof(char) * (ft_strlen(prompt) - 2));
+	if (!res)
+		return (NULL);
+	while (prompt[i])
+	{
+		if ((prompt[i] == '\'' || prompt[i] == '\"') && in_quotes == 0)
+			in_quotes = prompt[i];
+		else if (prompt[i] == in_quotes)
+			in_quotes = 0;
+		else
+			res[j++] = prompt[i];
+		i++;
+	}
+	res[j] = '\0';
+	return (res);
+}
+
 void init_hell(t_shell *shell, char **env)
 {
 	//t_env	*list;
@@ -27,8 +57,8 @@ static int	check_quotes(char *prompt)
 	bool	open_s_quote;
 	bool	open_d_quote;
 	i = 0;
-	open_s_quote = 0;
-	open_d_quote = 0;
+	open_s_quote = false;
+	open_d_quote = false;
 	while (prompt[i])
 	{
 		if (prompt[i] == '\'' && !open_d_quote)
@@ -77,8 +107,13 @@ int main(int ac, char **av, char **env)
 			add_history(prompt);
 		if (check_quotes(prompt))
 			printf ("ERROR: quotes not closed properly\n");
-		shell->cmd = prompt_to_array(prompt, shell);
-		commands(shell);
+		else
+		{
+			//prompt[0] = remove_quotes(prompt[0]);
+			shell->cmd = prompt_to_array(prompt, shell);
+			shell->cmd[0] = remove_quotes(shell->cmd[0]);
+			commands(shell);
+		}
 	}
 	return (0);
 }

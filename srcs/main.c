@@ -89,14 +89,14 @@ static char **prompt_to_array(char *prompt, t_shell *shell)
 	cmd = ft_split(prompt, ' ');
 	return (cmd);
 }
-static void free_shell(t_shell *shell)
+/*static void free_shell(t_shell *shell)
 {
 	if (shell->cmd)
 		free(shell->cmd);
 	free_env_list(shell->env);
 
 
-}
+}*/
 int main(int ac, char **av, char **env)
 {
 	(void)av;
@@ -124,10 +124,12 @@ int main(int ac, char **av, char **env)
 		{
 			shell->cmd = prompt_to_array(prompt, shell);
 			shell->cmd[0] = remove_quotes(shell->cmd[0]);
-			commands(shell);
+			if (shell->cmd[0])
+				commands(shell);
 		}
+		free(prompt);
 	}
-	free_shell(shell);
+	//free_shell(shell);
 	//free(shell);
 	return (0);
 }

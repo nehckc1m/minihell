@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-static void free_env_list(t_env *env_list)
+void free_env_list(t_env *env_list)
 {
     t_env *temp;
 
@@ -75,7 +75,7 @@ void	print_list(t_env *list_env)
     }
 }
 
-t_env	*export_env(t_shell *shell, char** env_var)
+t_env	*export_env(t_shell *shell, char **env_var)
 {
 	t_env	*tmp;
 	t_env	*new;
@@ -84,8 +84,9 @@ t_env	*export_env(t_shell *shell, char** env_var)
 	
 	i = 0;
 	new = NULL;
-	if (!env_var)
+	if (!*env_var)
 	{
+		print_list(shell->env);
 		return (shell->env);
 	}
 	while (env_var[i])

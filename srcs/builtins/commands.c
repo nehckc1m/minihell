@@ -30,6 +30,7 @@ static void ft_echo(char **cmd)
 	}
 	while (*cmd)
 	{
+		*cmd = remove_quotes(*cmd);
 		printf("%s",*cmd);
 		cmd++;
 	}
@@ -49,6 +50,8 @@ void	commands(t_shell *shell)
 		export_env(shell, shell->cmd + 1);
 	else if	(ft_strcmp(shell->cmd[0], "echo") == 0)
 		ft_echo(shell->cmd + 1);
+	else if (ft_strcmp(shell->cmd[0], "unset") == 0)
+		ft_unset(shell->env, shell->cmd + 1);
 	else
 		printf("command not found: %s\n", shell->cmd[0]);
 	//else if (ft_strcmp(prompt

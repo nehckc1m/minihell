@@ -31,15 +31,21 @@ typedef struct s_env{
 
 typedef struct s_shell{
 	struct s_env	*env;
+	struct s_env	*copy_env;
 	char		**cmd;
 	bool	running;
 	
 }		t_shell;
 
-
+//main.c
+char	*remove_quotes(char *prompt);
+int	check_quotes(char *prompt);
+//unset.c
+int	ft_unset(t_env *env, char **args);
 //env.c
 t_env	*list_env(char **env);
 t_env	*export_env(t_shell *shell, char **env_var);
+void free_env_list(t_env *env_list);
 void	print_list(t_env *list_env);
 //commands.c
 void	commands(t_shell *shell);

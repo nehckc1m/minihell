@@ -13,21 +13,30 @@
 #include "minishell.h"
 
 
-char	*remove_quotes(const char *prompt)
+char	*remove_quotes(char *prompt)
 {
 	char	*res;
 	int	i;
 	int	j;
 	int	in_quotes;
+	int	quote_count;
 
 	in_quotes = 0;
 	i = 0;
 	j = 0;
+	quote_count = 0;
 	if (!prompt)
 		return (NULL);
-	res = malloc(sizeof(char) * (ft_strlen(prompt) - 2));
+	while (prompt[i])
+	{
+		if (prompt[i] == '\'' || prompt[i] == '\"')
+			quote_count++;
+		i++;
+	}
+	res = malloc(sizeof(char) * (ft_strlen(prompt) - quote_count + 1));
 	if (!res)
 		return (NULL);
+	i = 0;
 	while (prompt[i])
 	{
 		if ((prompt[i] == '\'' || prompt[i] == '\"') && in_quotes == 0)
@@ -51,7 +60,7 @@ void init_hell(t_shell *shell, char **env)
 
 }
 
-static int	check_quotes(char *prompt)
+int	check_quotes(char *prompt)
 {
 	int	i;
 	bool	open_s_quote;
@@ -78,22 +87,26 @@ static char **prompt_to_array(char *prompt, t_shell *shell)
 		free(shell->cmd);
 	cmd = malloc(sizeof(char *));
 	cmd = ft_split(prompt, ' ');
-	//printf("%s,%s\n",cmd[0],cmd[1]);
 	return (cmd);
 }
+static void free_shell(t_shell *shell)
+{
+	if (shell->cmd)
+		free(shell->cmd);
+	free_env_list(shell->env);
 
+
+}
 int main(int ac, char **av, char **env)
 {
 	(void)av;
 	char *prompt;
-	//t_env	*list;
 	t_shell	*shell;
 
 	if (ac > 1)
 		return (printf("ERROR: too much args for minishell\n"));
 	shell = malloc(sizeof(t_shell));
 	init_hell(shell, env);
-	//list = list_env(env);
 	while (shell->running)
 	{
 		//list = list_env(env);
@@ -105,15 +118,16 @@ int main(int ac, char **av, char **env)
 		}
 		if (*prompt) 
 			add_history(prompt);
-		if (check_quotes(prompt))
+		if (check_quotes(prompt)== 1)
 			printf ("ERROR: quotes not closed properly\n");
 		else
 		{
-			//prompt[0] = remove_quotes(prompt[0]);
 			shell->cmd = prompt_to_array(prompt, shell);
 			shell->cmd[0] = remove_quotes(shell->cmd[0]);
 			commands(shell);
 		}
 	}
+	free_shell(shell);
+	//free(shell);
 	return (0);
 }

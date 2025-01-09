@@ -12,18 +12,17 @@
 
 #include "minishell.h"
 
-
 char	*remove_quotes(char *prompt)
 {
 	char	*res;
 	int	i;
 	int	j;
-	int	in_quotes;
 	int	quote_count;
-
-	in_quotes = 0;
+	int	in_quotes;
+	
 	i = 0;
 	j = 0;
+	in_quotes = 0;
 	quote_count = 0;
 	if (!prompt)
 		return (NULL);
@@ -53,7 +52,6 @@ char	*remove_quotes(char *prompt)
 
 void init_hell(t_shell *shell, char **env)
 {
-	//t_env	*list;
 	shell->env = list_env(env);
 	shell->cmd = NULL;
 	shell->running = 1;
@@ -116,7 +114,7 @@ int main(int ac, char **av, char **env)
 			printf("exit\n");
 			break;
 		}
-		if (*prompt) 
+		if (*prompt)
 			add_history(prompt);
 		if (check_quotes(prompt)== 1)
 			printf ("ERROR: quotes not closed properly\n");

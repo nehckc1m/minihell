@@ -51,4 +51,6 @@ void	print_list(t_env *list_env);
 void	commands(t_shell *shell);
 //utils.c
 int     ft_strcmp(char *s1, char *s2);
+//echo.c
+void ft_echo(char **cmd, t_shell *shell);
 #endif

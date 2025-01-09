@@ -12,33 +12,6 @@
 
 #include "../minishell.h"
 
-static void ft_echo(char **cmd)
-{
-	//int	i;
-	bool	newline;
-
-	newline = true;
-	if (!*cmd)
-	{
-		printf("\n");
-		return ;
-	}
-	while (*cmd && ft_strcmp(*cmd, "-n") == 0)
-	{
-		cmd++;
-		newline = false;
-	}
-	while (*cmd)
-	{
-		*cmd = remove_quotes(*cmd);
-		printf("%s",*cmd);
-		cmd++;
-	}
-	if (newline)
-		printf("\n");
-}
-
-
 void	commands(t_shell *shell)
 {
 	char    path[PATH_MAX];
@@ -49,7 +22,7 @@ void	commands(t_shell *shell)
 	else if (ft_strcmp(shell->cmd[0], "export") == 0)
 		export_env(shell, shell->cmd + 1);
 	else if	(ft_strcmp(shell->cmd[0], "echo") == 0)
-		ft_echo(shell->cmd + 1);
+		ft_echo(shell->cmd + 1, shell);
 	else if (ft_strcmp(shell->cmd[0], "unset") == 0)
 		ft_unset(shell->env, shell->cmd + 1);
 	else

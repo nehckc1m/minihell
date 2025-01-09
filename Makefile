@@ -5,6 +5,7 @@ SRCS =		srcs/main.c \
 		srcs/builtins/env.c \
 		srcs/builtins/commands.c \
 		srcs/builtins/unset.c \
+		srcs/builtins/echo.c \
 		
 		
 LIBFT = ./libft/libft.a

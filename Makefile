@@ -10,8 +10,9 @@ SRCS =		srcs/main.c \
 		
 		
 LIBFT = ./libft/libft.a
+INCLUDES = -Iincludes
 OBJECTS = $(SRCS:.c=.o)
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra -g $(INCLUDES)
 LFLAGS = -L./libft -lft
 
 all : $(NAME)

@@ -6,11 +6,11 @@
 /*   By: micchen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 01:25:07 by micchen           #+#    #+#             */
-/*   Updated: 2025/01/10 01:25:09 by micchen          ###   ########.fr       */
+/*   Updated: 2025/01/10 20:24:00 by itoudji          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
 void	ft_exit(t_shell *shell, char **cmd)
 {

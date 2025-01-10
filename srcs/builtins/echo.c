@@ -6,11 +6,11 @@
 /*   By: micchen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 18:42:43 by micchen           #+#    #+#             */
-/*   Updated: 2025/01/09 18:42:44 by micchen          ###   ########.fr       */
+/*   Updated: 2025/01/10 20:22:45 by itoudji          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
 char	*ft_strcat(char *dest, char *to)
 {

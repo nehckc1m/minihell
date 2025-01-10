@@ -6,11 +6,11 @@
 /*   By: micchen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 19:32:43 by micchen           #+#    #+#             */
-/*   Updated: 2025/01/03 19:32:45 by micchen          ###   ########.fr       */
+/*   Updated: 2025/01/10 20:22:30 by itoudji          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
 void	commands(t_shell *shell)
 {

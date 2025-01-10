@@ -6,11 +6,11 @@
 /*   By: micchen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 01:12:41 by micchen           #+#    #+#             */
-/*   Updated: 2025/01/08 03:51:09 by micchen          ###   ########.fr       */
+/*   Updated: 2025/01/10 20:24:13 by itoudji          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
 static int	ft_rm(t_env *env, char *var)
 {

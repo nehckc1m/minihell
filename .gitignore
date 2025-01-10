@@ -4,6 +4,6 @@
 *.so
 *.exe
 
-
+minihell-guide.png
 /build/
 minishell

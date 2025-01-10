@@ -87,14 +87,7 @@ static char **prompt_to_array(char *prompt, t_shell *shell)
 	cmd = ft_split(prompt, ' ');
 	return (cmd);
 }
-/*static void free_shell(t_shell *shell)
-{
-	if (shell->cmd)
-		free(shell->cmd);
-	free_env_list(shell->env);
 
-
-}*/
 int main(int ac, char **av, char **env)
 {
 	(void)av;
@@ -107,7 +100,6 @@ int main(int ac, char **av, char **env)
 	init_hell(shell, env);
 	while (shell->running)
 	{
-		//list = list_env(env);
 		prompt = readline("😈mini_hell>");
 		if (prompt == NULL)
 		{
@@ -127,7 +119,5 @@ int main(int ac, char **av, char **env)
 		}
 		free(prompt);
 	}
-	//free_shell(shell);
-	//free(shell);
 	return (0);
 }

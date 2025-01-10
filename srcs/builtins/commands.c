@@ -25,7 +25,8 @@ void	commands(t_shell *shell)
 		ft_echo(shell->cmd + 1, shell);
 	else if (ft_strcmp(shell->cmd[0], "unset") == 0)
 		ft_unset(shell->env, shell->cmd + 1);
+	else if (ft_strcmp(shell->cmd[0], "exit") == 0)
+		ft_exit(shell, shell->cmd+1);
 	else
 		printf("command not found: %s\n", shell->cmd[0]);
-	//else if (ft_strcmp(prompt
 }	

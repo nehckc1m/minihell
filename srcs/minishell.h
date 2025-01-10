@@ -53,4 +53,6 @@ void	commands(t_shell *shell);
 int     ft_strcmp(char *s1, char *s2);
 //echo.c
 void ft_echo(char **cmd, t_shell *shell);
+//ft_exit.c
+void	ft_exit(t_shell *shell, char **cmd);
 #endif

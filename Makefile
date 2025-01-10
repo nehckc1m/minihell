@@ -6,6 +6,7 @@ SRCS =		srcs/main.c \
 		srcs/builtins/commands.c \
 		srcs/builtins/unset.c \
 		srcs/builtins/echo.c \
+		srcs/builtins/ft_exit.c \
 		
 		
 LIBFT = ./libft/libft.a

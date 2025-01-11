@@ -6,7 +6,7 @@
 /*   By: micchen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 23:16:02 by micchen           #+#    #+#             */
-/*   Updated: 2025/01/12 00:14:11 by micchen          ###   ########.fr       */
+/*   Updated: 2025/01/12 00:18:02 by micchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_pwd(char **cmd)
 		i++;
 	}
 	if (i > 0)
-		printf("too many arguments\n");
+		printf("pwd: too many arguments\n");
 	else
 		printf("%s\n", getcwd(path,sizeof(path)));
 }

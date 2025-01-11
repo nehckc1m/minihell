@@ -52,7 +52,11 @@ void	commands(t_shell *shell);
 //utils.c
 int     ft_strcmp(char *s1, char *s2);
 //echo.c
+void	ft_pwd(char **cmd);
 void ft_echo(char **cmd, t_shell *shell);
+char	*get_env_value(t_env *env, char *var);
 //ft_exit.c
 void	ft_exit(t_shell *shell, char **cmd);
+//ft_cd.c
+void	ft_cd(t_shell *shell, char *path);
 #endif

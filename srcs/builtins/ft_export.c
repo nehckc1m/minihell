@@ -88,7 +88,7 @@ t_env	*export_env(t_shell *shell, char **env_var)
 	t_env	*tmp;
 	t_env	*new;
 	int	i;
-	int	j=0;
+	int	j = 0;
 	
 	i = 0;
 	new = NULL;

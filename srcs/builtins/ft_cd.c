@@ -6,7 +6,7 @@
 /*   By: micchen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 23:16:02 by micchen           #+#    #+#             */
-/*   Updated: 2025/01/12 00:18:02 by micchen          ###   ########.fr       */
+/*   Updated: 2025/01/12 01:49:59 by micchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,56 @@ void	ft_pwd(char **cmd)
 	else
 		printf("%s\n", getcwd(path,sizeof(path)));
 }
-/*
-static void	update_home(t_
 
-static void	update_pwd(t_shell *shell)
+static t_env	*update_pwd(t_shell *shell)
 {
+	t_env	*current;
+	char	path[PATH_MAX];
+	int	updated;
+	char	*old_path;
 
-
-
-
+	updated = 1;
+	current = shell->env;
+	while (current->next)
+	{
+		if (ft_strcmp(current->name, "PWD") == 0)
+		{
+			old_path = current->value;
+			break;
+		}
+		current = current->next;
+	}
+	while (updated != 0)
+	{
+		current = shell->env;
+		while (current->next)
+		{
+			if (ft_strcmp(current->name, "OLDPWD") == 0 && updated == 1)
+			{
+				if (current->value)
+					free(current->value);
+				current->value = ft_strdup(old_path);
+				updated = 2;
+			}
+			if (ft_strcmp(current->name, "PWD") == 0 && updated == 2)
+			{
+				current->value = getcwd(path, sizeof(path));
+				updated = 0;
+			}
+			current = current->next;
+		}
+	}
+	/*else
+	{
+		updated_pwd = malloc(sizeof(t_env));
+		updated_pwd->name = "PWD";
+		updated_pwd->value = getcwd(path, sizeof(path));
+		updated_pwd->next = NULL;
+		current = updated_pwd;
+	}*/
+	return (shell->env);
 }
-*/
+
 void	ft_cd(t_shell *shell, char *path)
 {
 	char	*home_path;
@@ -49,7 +88,8 @@ void	ft_cd(t_shell *shell, char *path)
 	{
 		err = chdir(get_env_value(shell->env, "HOME"));
 		perror("cd");
-		return;
+		shell->env = update_pwd(shell);
+		return ;
 	}
 	else if (path[0])
 	{
@@ -67,5 +107,6 @@ void	ft_cd(t_shell *shell, char *path)
 		perror("cd");
 		return ;
 	}
-	return /*(update_pwd(shell->env), update_home(shell->env))*/;
+	shell->env = update_pwd(shell);
+	return ;
 }

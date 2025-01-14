@@ -58,10 +58,13 @@ char *ft_strjoin_three(char *s1, char *s2, char *s3);
 void free_array(char **array);
 int	env_list_size(t_env *env);
 char	**convert_env_to_array(t_env *env);
+//utils2.c
+int	alloc_size(char *str, t_shell *shell);
 //echo.c
 void	ft_pwd(char **cmd);
 void ft_echo(char **cmd, t_shell *shell);
 char	*get_env_value(t_env *env, char *var);
+char	*extract_word(char *str);
 //ft_exit.c
 void	ft_exit(t_shell *shell, char **cmd);
 //ft_cd.c

@@ -9,6 +9,7 @@ SRCS =		srcs/main.c \
 		srcs/builtins/ft_exit.c \
 		srcs/builtins/ft_export.c \
 		srcs/builtins/ft_cd.c \
+		srcs/utils2.c \
 		
 		
 LIBFT = ./libft/libft.a

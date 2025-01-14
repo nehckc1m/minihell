@@ -91,7 +91,6 @@ static void	external_command(t_shell *shell, t_env *env)
 
 void	commands(t_shell *shell)
 {
-	char    path[PATH_MAX];
 	if (ft_strcmp(shell->cmd[0], "pwd") == 0)
 		ft_pwd(&shell->cmd[1]);
 	else if (ft_strcmp(shell->cmd[0], "env") == 0)

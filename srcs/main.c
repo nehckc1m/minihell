@@ -80,14 +80,186 @@ int	check_quotes(char *prompt)
 
 static char **prompt_to_array(char *prompt, t_shell *shell)
 {
-	char **cmd;
+	/*char **cmd;
+	int	i;
+	int	j;
+	bool	in_quotes;
+	bool	in_word;
+	int	start = 0;
 	
+	
+	in_word = 0;
+	in_quotes = 0;	
+	j = 0;
+	i = 0;
 	if (shell->cmd)
 		free(shell->cmd);
-	cmd = malloc(sizeof(char *));
-	cmd = ft_split(prompt, ' ');
-	return (cmd);
+	while (prompt[i])
+	{
+		while (prompt[i] && prompt[i] == ' ')
+			i++;
+		if (prompt[i])
+		{
+			in_word = 1;
+			while (in_word)
+			{
+				i++;
+				if (prompt[i + 1] == ' ')
+					in_word = 0;
+			}
+		}
+		else if (prompt[i] == '\'' || prompt[i] == '\"')
+		{
+			in_quotes = 1;
+			while ((prompt[i] != '\'' || prompt[i] != '\"') && in_quotes == 1)
+				i++;
+			in_quotes = 0;
+			j++;
+		}			
+	}
+	cmd = malloc(sizeof(char *) * (j + 1));
+	i = 0;
+	j = 0;
+	while (prompt[i])
+	{
+		if (ft_isalpha(prompt[i]))
+		{
+			in_word = 1;
+			while (in_word)
+			{
+				i++;
+				if (prompt[i + 1] == ' ')
+				{
+					cmd[j] = strndup(prompt + start, i - start);
+					in_word = 0;
+				}
+			}
+		}
+		else if (prompt[i] == '\'' || prompt[i] == '\"')
+		{
+			in_quotes = 1;
+			while ((prompt[i] != '\'' || prompt[i] != '\"') && in_quotes == 1)
+				i++;
+			in_quotes = 0;
+			cmd[j] = ft_strdup(prompt - i);
+			j++;
+		}
+		else
+			i++;			
+	}
+	cmd[j] = NULL;
+	j = 0;
+	while (cmd[j])
+	{
+		printf("array: %s\n",cmd[j]);
+		j++;
+	}
+	return (cmd);*/
+    char **cmd;
+    int i = 0;
+    int j = 0;
+    int word_count = 0;
+    int start = 0;
+    char quote_char;
+
+    // First pass: count words
+    while (prompt[i])
+    {
+        // Skip spaces
+        while (prompt[i] && prompt[i] == ' ')
+            i++;
+        
+        if (prompt[i])
+        {
+            word_count++;
+            // Handle quoted strings
+            if (prompt[i] == '\'' || prompt[i] == '\"')
+            {
+                quote_char = prompt[i];
+                i++;
+                while (prompt[i] && prompt[i] != quote_char)
+                    i++;
+                if (prompt[i])
+                    i++;
+            }
+            // Handle regular words
+            else
+            {
+                while (prompt[i] && prompt[i] != ' ')
+                {
+                    if (prompt[i] == '\'' || prompt[i] == '\"')
+                    {
+                        quote_char = prompt[i];
+                        i++;
+                        while (prompt[i] && prompt[i] != quote_char)
+                            i++;
+                        if (prompt[i])
+                            i++;
+                    }
+                    else
+                        i++;
+                }
+            }
+        }
+    }
+
+    // Allocate array
+    cmd = malloc(sizeof(char *) * (word_count + 1));
+    if (!cmd)
+        return NULL;
+
+    // Second pass: fill array
+    i = 0;
+    while (prompt[i])
+    {
+        // Skip spaces
+        while (prompt[i] && prompt[i] == ' ')
+            i++;
+        
+        if (prompt[i])
+        {
+            start = i;
+            // Handle quoted strings
+            if (prompt[i] == '\'' || prompt[i] == '\"')
+            {
+                quote_char = prompt[i];
+                i++;
+                while (prompt[i] && prompt[i] != quote_char)
+                    i++;
+                if (prompt[i])
+                    i++;
+            }
+            // Handle regular words
+            else
+            {
+                while (prompt[i] && prompt[i] != ' ')
+                {
+                    if (prompt[i] == '\'' || prompt[i] == '\"')
+                    {
+                        quote_char = prompt[i];
+                        i++;
+                        while (prompt[i] && prompt[i] != quote_char)
+                            i++;
+                        if (prompt[i])
+                            i++;
+                    }
+                    else
+                        i++;
+                }
+            }
+            cmd[j] = strndup(prompt + start, i - start);
+            j++;
+        }
+    }
+    cmd[j] = NULL;
+
+    // Free previous command if it exists
+    if (shell->cmd)
+        free(shell->cmd);
+
+    return cmd;
 }
+
 
 void	free_readline(void)
 {

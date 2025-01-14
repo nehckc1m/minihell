@@ -73,10 +73,7 @@ char	*get_env_value(t_env *env, char *var)
 	if (!value)
 		return (NULL);
 	else
-	{
-		printf("get_env : %s\n", value);
 		return (value);
-	}
 }
 
 char	*handle_quotes_echo(char *prompt, t_shell *shell)
@@ -87,7 +84,7 @@ char	*handle_quotes_echo(char *prompt, t_shell *shell)
 	int	quote_count;
 	int	in_quotes;
 	char	*env_var_value;
-
+	
 	i = 0;
 	j = 0;
 	in_quotes = 0;
@@ -101,24 +98,32 @@ char	*handle_quotes_echo(char *prompt, t_shell *shell)
 	if (!res)
 		return (NULL);
 	i = 0;
+	ft_memset(res, 0, ft_strlen(prompt) + 1);
+	printf("2RES: %s\n", res);
 	while (prompt[i])
 	{
-		if (prompt[i] == '\'' && in_quotes == 0)
+		/*if (prompt[i] == '\'' && in_quotes == 0)
 			in_quotes = 1; //opened single quote
 		else if (prompt[i] == '\'' && in_quotes == 1)
 			in_quotes = 0; // closed single quotes
 		else if (prompt[i] == '\"' && in_quotes == 0)
 			in_quotes = 2; // opened double quote
 		else if (prompt[i] == '\"' && in_quotes == 2)
-			in_quotes = 0; // closed double quotes
+			in_quotes = 0; // closed double quotes*/
+		if (prompt[i] == '\'' && in_quotes != 2)
+			in_quotes = (in_quotes == 1) ? 0 : 1;
+		else if (prompt[i] == '\"' && in_quotes != 1)
+			in_quotes = (in_quotes == 2) ? 0 : 2;
 		else if (prompt[i] == '$' && in_quotes != 1) // if not in single quote
 		{
 			env_var_value = get_env_value(shell->env, extract_word(&prompt[i + 1]));
+			printf("get_env_value: %s\n RES: %s\n",env_var_value, res);
 			if (env_var_value)
 			{
 				res = ft_strcat(res, env_var_value);
+				printf("AIAIAIA: %s\n",res);
 				j += ft_strlen(env_var_value);
-				i += ft_strlen(&prompt[i]);
+				i += ft_strlen(extract_word(&prompt[i + 1]));
 				free(env_var_value);
 			}
 		}
@@ -127,6 +132,7 @@ char	*handle_quotes_echo(char *prompt, t_shell *shell)
 		i++;
 	}
 	res[j] = '\0';
+	printf("DANS HANDLE: %s\n",res);
 	return (res);
 }
 
@@ -134,6 +140,7 @@ void ft_echo(char **cmd, t_shell *shell)
 {
 	//int	i;
 	bool	newline;
+	char	*line;
 
 	newline = true;
 	if (!*cmd)
@@ -148,8 +155,10 @@ void ft_echo(char **cmd, t_shell *shell)
 	}
 	while (*cmd)
 	{
-		*cmd = handle_quotes_echo(*cmd, shell);
-		printf("%s",*cmd);
+		//printf("3RES: %s\n",line);
+		line = handle_quotes_echo(*cmd, shell);
+		printf("%s",line);
+		free(line);
 		cmd++;
 		if (*cmd)
 			printf(" ");

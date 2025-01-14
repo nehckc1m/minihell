@@ -210,54 +210,54 @@ static char **prompt_to_array(char *prompt, t_shell *shell)
 
     // Second pass: fill array
     i = 0;
-    while (prompt[i])
-    {
+	while (prompt[i])
+	{
         // Skip spaces
-        while (prompt[i] && prompt[i] == ' ')
-            i++;
-        
-        if (prompt[i])
-        {
-            start = i;
+		while (prompt[i] && prompt[i] == ' ')
+			i++;
+
+		if (prompt[i])
+		{
+			start = i;
             // Handle quoted strings
-            if (prompt[i] == '\'' || prompt[i] == '\"')
-            {
-                quote_char = prompt[i];
-                i++;
-                while (prompt[i] && prompt[i] != quote_char)
-                    i++;
-                if (prompt[i])
-                    i++;
-            }
+			if (prompt[i] == '\'' || prompt[i] == '\"')
+			{
+				quote_char = prompt[i];
+				i++;
+				while (prompt[i] && prompt[i] != quote_char)
+					i++;
+				if (prompt[i])
+					i++;
+			}
             // Handle regular words
-            else
-            {
-                while (prompt[i] && prompt[i] != ' ')
-                {
-                    if (prompt[i] == '\'' || prompt[i] == '\"')
-                    {
-                        quote_char = prompt[i];
-                        i++;
-                        while (prompt[i] && prompt[i] != quote_char)
-                            i++;
-                        if (prompt[i])
-                            i++;
-                    }
-                    else
-                        i++;
-                }
-            }
-            cmd[j] = strndup(prompt + start, i - start);
-            j++;
-        }
-    }
-    cmd[j] = NULL;
+			else
+			{
+				while (prompt[i] && prompt[i] != ' ')
+				{
+					if (prompt[i] == '\'' || prompt[i] == '\"')
+					{
+						quote_char = prompt[i];
+						i++;
+						while (prompt[i] && prompt[i] != quote_char)
+							i++;
+						if (prompt[i])
+						i++;
+					}
+					else
+						i++;
+				}
+			}
+			cmd[j] = strndup(prompt + start, i - start);
+			j++;
+		}
+	}
+	cmd[j] = NULL;
 
     // Free previous command if it exists
-    if (shell->cmd)
-        free(shell->cmd);
+	if (shell->cmd)
+	free(shell->cmd);
 
-    return cmd;
+	return cmd;
 }
 
 

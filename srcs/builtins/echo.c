@@ -84,6 +84,7 @@ char	*handle_quotes_echo(char *prompt, t_shell *shell)
 	int	quote_count;
 	int	in_quotes;
 	char	*env_var_value;
+	char	*word;
 	
 	i = 0;
 	j = 0;
@@ -91,40 +92,33 @@ char	*handle_quotes_echo(char *prompt, t_shell *shell)
 	quote_count = 0;
 	if (!prompt)
 		return (NULL);
-	if (check_quotes(prompt) == 0)
-		res = malloc(sizeof(char) * (ft_strlen(prompt) - 1));
-	else
-		res = malloc(sizeof(char) * (ft_strlen(prompt) + 1));
+	res = malloc(sizeof(char) * alloc_size(prompt, shell) + 1);
 	if (!res)
 		return (NULL);
 	i = 0;
-	ft_memset(res, 0, ft_strlen(prompt) + 1);
-	printf("2RES: %s\n", res);
+	ft_memset(res, 0, alloc_size(prompt, shell) + 1);
 	while (prompt[i])
 	{
-		/*if (prompt[i] == '\'' && in_quotes == 0)
-			in_quotes = 1; //opened single quote
-		else if (prompt[i] == '\'' && in_quotes == 1)
-			in_quotes = 0; // closed single quotes
-		else if (prompt[i] == '\"' && in_quotes == 0)
-			in_quotes = 2; // opened double quote
-		else if (prompt[i] == '\"' && in_quotes == 2)
-			in_quotes = 0; // closed double quotes*/
 		if (prompt[i] == '\'' && in_quotes != 2)
 			in_quotes = (in_quotes == 1) ? 0 : 1;
 		else if (prompt[i] == '\"' && in_quotes != 1)
 			in_quotes = (in_quotes == 2) ? 0 : 2;
 		else if (prompt[i] == '$' && in_quotes != 1) // if not in single quote
 		{
-			env_var_value = get_env_value(shell->env, extract_word(&prompt[i + 1]));
-			printf("get_env_value: %s\n RES: %s\n",env_var_value, res);
-			if (env_var_value)
+			word = extract_word(&prompt[i + 1]);
+			if (word)
 			{
-				res = ft_strcat(res, env_var_value);
-				printf("AIAIAIA: %s\n",res);
-				j += ft_strlen(env_var_value);
-				i += ft_strlen(extract_word(&prompt[i + 1]));
-				free(env_var_value);
+				env_var_value = get_env_value(shell->env, word);
+				if (env_var_value)
+				{
+					res = ft_strcat(res, env_var_value);
+					j += ft_strlen(env_var_value);
+					i += ft_strlen(word);
+					free(env_var_value);
+				}
+				else
+					i += ft_strlen(word);
+				free(word);
 			}
 		}
 		else
@@ -132,7 +126,6 @@ char	*handle_quotes_echo(char *prompt, t_shell *shell)
 		i++;
 	}
 	res[j] = '\0';
-	printf("DANS HANDLE: %s\n",res);
 	return (res);
 }
 
@@ -155,7 +148,6 @@ void ft_echo(char **cmd, t_shell *shell)
 	}
 	while (*cmd)
 	{
-		//printf("3RES: %s\n",line);
 		line = handle_quotes_echo(*cmd, shell);
 		printf("%s",line);
 		free(line);

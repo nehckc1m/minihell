@@ -39,7 +39,6 @@ static char	*find_cmd_in_path(char *cmd, t_env *env)
 	}
 	if (path == NULL)
 		return (NULL);
-		
 	dirs = ft_split(path, ':');
 	i = 0;
 	while (dirs[i])

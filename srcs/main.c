@@ -53,6 +53,7 @@ char	*remove_quotes(char *prompt)
 void init_hell(t_shell *shell, char **env)
 {
 	shell->env = list_env(env);
+	shell->env_array = NULL;
 	shell->cmd = NULL;
 	shell->running = 1;
 
@@ -88,6 +89,16 @@ static char **prompt_to_array(char *prompt, t_shell *shell)
 	return (cmd);
 }
 
+void	free_readline(void)
+{
+	clear_history();
+	rl_clear_pending_input();
+	rl_clear_signals();
+	rl_clear_history();
+	rl_free_line_state();
+	rl_deprep_terminal();	
+}
+
 int main(int ac, char **av, char **env)
 {
 	(void)av;
@@ -103,8 +114,11 @@ int main(int ac, char **av, char **env)
 		prompt = readline("😈mini_hell>");
 		if (prompt == NULL)
 		{
+			
 			printf("exit\n");
-			break;
+			free_readline();
+			free_env_list(shell->env);
+			return (0);
 		}
 		if (*prompt)
 			add_history(prompt);

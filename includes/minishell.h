@@ -22,6 +22,8 @@
 # include "../libft/libft.h"
 # include <limits.h>
 # include <stdbool.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 typedef struct s_env{
 	char *name;
@@ -33,6 +35,7 @@ typedef struct s_shell{
 	struct s_env	*env;
 	struct s_env	*copy_env;
 	char		**cmd;
+	char		**env_array;
 	bool	running;
 	
 }		t_shell;
@@ -51,6 +54,10 @@ void	print_list(t_env *list_env);
 void	commands(t_shell *shell);
 //utils.c
 int     ft_strcmp(char *s1, char *s2);
+char *ft_strjoin_three(char *s1, char *s2, char *s3);
+void free_array(char **array);
+int	env_list_size(t_env *env);
+char	**convert_env_to_array(t_env *env);
 //echo.c
 void	ft_pwd(char **cmd);
 void ft_echo(char **cmd, t_shell *shell);

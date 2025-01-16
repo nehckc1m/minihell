@@ -81,7 +81,6 @@ char	*handle_quotes(char *prompt, t_shell *shell)
 	char	*res;
 	int	i;
 	int	j;
-	int	quote_count;
 	int	in_quotes;
 	char	*env_var_value;
 	char	*word;
@@ -89,7 +88,6 @@ char	*handle_quotes(char *prompt, t_shell *shell)
 	i = 0;
 	j = 0;
 	in_quotes = 0;
-	quote_count = 0;
 	if (!prompt)
 		return (NULL);
 	res = malloc(sizeof(char) * alloc_size(prompt, shell) + 1);

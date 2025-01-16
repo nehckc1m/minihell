@@ -2,12 +2,8 @@ NAME = minishell
 CC = cc
 SRCS =		srcs/main.c \
 		srcs/utils.c \
-		srcs/builtins/env.c \
-		srcs/builtins/commands.c \
-		srcs/builtins/unset.c \
-		srcs/builtins/echo.c \
-		srcs/builtins/ft_exit.c \
-		
+		srcs/env.c \
+				
 		
 LIBFT = ./libft/libft.a
 INCLUDES = -Iincludes

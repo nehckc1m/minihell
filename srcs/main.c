@@ -6,7 +6,7 @@
 /*   By: micchen <micchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 18:55:11 by micchen           #+#    #+#             */
-/*   Updated: 2025/01/03 19:59:43 by micchen          ###   ########.fr       */
+/*   Updated: 2025/01/16 23:33:25 by itoudji          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,8 @@ int main(int ac, char **av, char **env)
 		{
 			shell->cmd = prompt_to_array(prompt, shell);
 			shell->cmd[0] = remove_quotes(shell->cmd[0]);
-			if (shell->cmd[0])
-				commands(shell);
+			/*if (shell->cmd[0])
+				commands(shell); */
 		}
 		free(prompt);
 	}

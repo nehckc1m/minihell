@@ -45,14 +45,14 @@ int	ft_unset(t_env *env, char **args);
 //env.c
 t_env	*list_env(char **env);
 t_env	*export_env(t_shell *shell, char **env_var);
-void free_env_list(t_env *env_list);
 void	print_list(t_env *list_env);
+t_env	*create_node(char *name, char *value);
 //commands.c
 void	commands(t_shell *shell);
 //utils.c
 int     ft_strcmp(char *s1, char *s2);
 //echo.c
-void ft_echo(char **cmd, t_shell *shell);
+void 	ft_echo(char **cmd, t_shell *shell);
 //ft_exit.c
 void	ft_exit(t_shell *shell, char **cmd);
 #endif

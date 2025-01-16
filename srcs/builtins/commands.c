@@ -46,6 +46,8 @@ static char	*find_cmd_in_path(char *cmd, t_env *env)
 		path = ft_strjoin_three(dirs[i], "/", cmd);
 		if (access(path, X_OK) == 0)
 		{
+			printf("path: %s\n", path);
+			printf("dirs: %s\n", dirs[i]);
 			free_array(dirs);
 			return (path);
 		}
@@ -64,6 +66,7 @@ static void	external_command(t_shell *shell, t_env *env)
 	char	*cmd_path;
 
 	cmd_path = find_cmd_in_path(shell->cmd[0], env);
+	printf("cmd: %s\n", cmd_path);
 	if (cmd_path == NULL)
 	{
 		printf("command not found: %s\n", shell->cmd[0]);
@@ -95,9 +98,12 @@ void	commands(t_shell *shell)
 	else if (ft_strcmp(shell->cmd[0], "env") == 0)
 		print_list(shell->env);
 	else if (ft_strcmp(shell->cmd[0], "export") == 0)
+	{
 		export_env(shell, shell->cmd + 1);
+		//print_list(shell->env);
+	}
 	else if	(ft_strcmp(shell->cmd[0], "echo") == 0)
-		ft_echo(shell->cmd + 1, shell);
+		ft_echo(shell->cmd + 1);
 	else if (ft_strcmp(shell->cmd[0], "unset") == 0)
 		ft_unset(shell->env, shell->cmd + 1);
 	else if (ft_strcmp(shell->cmd[0], "exit") == 0)

@@ -60,9 +60,15 @@ int	env_list_size(t_env *env);
 char	**convert_env_to_array(t_env *env);
 //utils2.c
 int	alloc_size(char *str, t_shell *shell);
+char	*handle_quotes(char *prompt, t_shell *shell);
+char	**parsing_cmd(char **cmd, t_shell *shell);
+int	check_var(char *env);
+//export.c
+t_env *sort_env(t_env *env, t_env *copy);
 //echo.c
+char	*ft_strcat(char *dest, char *to);
 void	ft_pwd(char **cmd);
-void ft_echo(char **cmd, t_shell *shell);
+void ft_echo(char **cmd);
 char	*get_env_value(t_env *env, char *var);
 char	*extract_word(char *str);
 //ft_exit.c

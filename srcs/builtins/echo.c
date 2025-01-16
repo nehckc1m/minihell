@@ -64,76 +64,30 @@ char	*get_env_value(t_env *env, char *var)
 
 	value = NULL;
 	current = env;
+	//printf("var:%s\n", var);
 	while (current->next)
 	{
 		if (strcmp(current->name, var) == 0)
-			value = ft_strdup(current->value);
+		{
+			break;
+		}
 		current = current->next;
 	}
+	value = ft_strdup(current->value);
+	//printf("name: %s\n", current->name);
+	//printf("value: %s\n",current->value);
+	//printf("value: %s\n",value);
 	if (!value)
 		return (NULL);
 	else
 		return (value);
 }
 
-char	*handle_quotes_echo(char *prompt, t_shell *shell)
-{
-	char	*res;
-	int	i;
-	int	j;
-	int	quote_count;
-	int	in_quotes;
-	char	*env_var_value;
-	char	*word;
-	
-	i = 0;
-	j = 0;
-	in_quotes = 0;
-	quote_count = 0;
-	if (!prompt)
-		return (NULL);
-	res = malloc(sizeof(char) * alloc_size(prompt, shell) + 1);
-	if (!res)
-		return (NULL);
-	i = 0;
-	ft_memset(res, 0, alloc_size(prompt, shell) + 1);
-	while (prompt[i])
-	{
-		if (prompt[i] == '\'' && in_quotes != 2)
-			in_quotes = (in_quotes == 1) ? 0 : 1;
-		else if (prompt[i] == '\"' && in_quotes != 1)
-			in_quotes = (in_quotes == 2) ? 0 : 2;
-		else if (prompt[i] == '$' && in_quotes != 1) // if not in single quote
-		{
-			word = extract_word(&prompt[i + 1]);
-			if (word)
-			{
-				env_var_value = get_env_value(shell->env, word);
-				if (env_var_value)
-				{
-					res = ft_strcat(res, env_var_value);
-					j += ft_strlen(env_var_value);
-					i += ft_strlen(word);
-					free(env_var_value);
-				}
-				else
-					i += ft_strlen(word);
-				free(word);
-			}
-		}
-		else
-			res[j++] = prompt[i];
-		i++;
-	}
-	res[j] = '\0';
-	return (res);
-}
-
-void ft_echo(char **cmd, t_shell *shell)
+void ft_echo(char **cmd)
 {
 	//int	i;
 	bool	newline;
-	char	*line;
+
 
 	newline = true;
 	if (!*cmd)
@@ -148,9 +102,7 @@ void ft_echo(char **cmd, t_shell *shell)
 	}
 	while (*cmd)
 	{
-		line = handle_quotes_echo(*cmd, shell);
-		printf("%s",line);
-		free(line);
+		printf("%s",*cmd);
 		cmd++;
 		if (*cmd)
 			printf(" ");

@@ -100,6 +100,14 @@ t_env	*export_env(t_shell *shell, char **env_var)
 	}
 	while (env_var[i])
 	{
+		if (!check_var(env_var[i]))
+		{
+			printf("export : %s : not an valid identifier\n", env_var[i]);
+			if (env_var[i + 1])
+				i++;
+			else
+				return (shell->env);
+		}
 		new = malloc (sizeof(t_env));
 		new->name = strndup(env_var[i], ft_strchr(env_var[i], '=') - env_var[i]);
 		new->value = strdup(ft_strchr(env_var[i], '=') + 1);

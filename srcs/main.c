@@ -53,6 +53,7 @@ char	*remove_quotes(char *prompt)
 void init_hell(t_shell *shell, char **env)
 {
 	shell->env = list_env(env);
+	shell->copy_env = sort_env(shell->env, shell->copy_env);
 	shell->env_array = NULL;
 	shell->cmd = NULL;
 	shell->running = 1;
@@ -299,7 +300,10 @@ int main(int ac, char **av, char **env)
 		else
 		{
 			shell->cmd = prompt_to_array(prompt, shell);
+			shell->cmd = parsing_cmd(shell->cmd, shell);
+			//printf("$var: %s\n",shell->cmd[0]);
 			shell->cmd[0] = remove_quotes(shell->cmd[0]);
+			//printf("$var: %s\n",shell->cmd[0]);
 			if (shell->cmd[0])
 				commands(shell);
 		}

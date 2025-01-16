@@ -41,11 +41,10 @@ static int	ft_rm(t_env *env, char *var)
 
 int	ft_unset(t_env	*env, char **args)
 {
-	t_env	*head;
+
 	int	i;
 
 	i = 0;
-	head = env;
 	if (!*args)
 	{
 		printf("unset: not enough arguments\n");
